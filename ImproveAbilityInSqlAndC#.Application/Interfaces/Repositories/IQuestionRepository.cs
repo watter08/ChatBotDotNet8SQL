@@ -2,5 +2,6 @@
 {
     public interface IQuestionRepository
     {
+        Task<string> GetIAResponse(List<string> Answers, string question);
     }
 }

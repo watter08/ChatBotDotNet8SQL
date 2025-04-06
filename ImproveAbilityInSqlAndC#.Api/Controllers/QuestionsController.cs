@@ -1,6 +1,5 @@
 ﻿using ImproveAbilityInSqlAndC_.Application.DTOs;
 using ImproveAbilityInSqlAndC_.Application.Interfaces.Services;
-using ImproveAbilityInSqlAndC_.Application.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImproveAbilityInSqlAndC_.Api.Controllers
@@ -9,16 +8,16 @@ namespace ImproveAbilityInSqlAndC_.Api.Controllers
     [ApiController]
     public class QuestionsController : ControllerBase
     {
-        private readonly IProductServices _services;
-        public QuestionsController(IProductServices productServices)
+        private readonly IQuestionService _services;
+        public QuestionsController(IQuestionService questionService)
         {
-            _services = productServices;
+            _services = questionService;
         }
 
-        [HttpPost("GetIAAnswerForFaqQuestion")]
-        public async Task<IActionResult> GetIAAnswerForFaqQuestion([FromBody] RUserQuestion QuestionData)
+        [HttpGet("GetIAAnswerForFaqQuestion")]
+        public async Task<IActionResult> GetIAAnswerForFaqQuestion(string question)
         {
-            ApiResponse<List<DtoProducts>> response = await _services.GetMoreExpensiveProductByCategory();
+            ApiResponse<string>? response = await _services.GetIAAnswerByQuestion(question);
             return Ok(response);
         }
     }

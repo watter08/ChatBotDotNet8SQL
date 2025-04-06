@@ -1,4 +1,5 @@
-﻿using ImproveAbilityInSqlAndC_.Application.Interfaces.Patterns;
+﻿using ImproveAbilityInSqlAndC_.Application.DTOs;
+using ImproveAbilityInSqlAndC_.Application.Interfaces.Patterns;
 using ImproveAbilityInSqlAndC_.Application.Interfaces.Repositories;
 using ImproveAbilityInSqlAndC_.Application.Interfaces.Services;
 using System.Data;
@@ -9,10 +10,31 @@ namespace ImproveAbilityInSqlAndC_.Infrastructure.Services.Question
     {
         private IGenericRepository _repository;
         private IQueryFactory _queryFactory;
-        public QuestionService(IGenericRepository repository, IQueryFactory queryFactory)
+        private IQuestionRepository _questionRepository;
+        public QuestionService(IGenericRepository repository, IQueryFactory queryFactory, IQuestionRepository questionRepository)
         {
             _repository = repository;
             _queryFactory = queryFactory;
+            _questionRepository = questionRepository;
+        }
+
+        public async Task<ApiResponse<string>?> GetIAAnswerByQuestion(string question)
+        {
+            ApiResponse<string>? Response = default;
+            try
+            {
+                List<string>? Answers = await GetTopInfoQuestions(question);
+                if(Answers == null || Answers.Count == 0)
+                {
+                    return ApiResponse<string>.Success("No se encontro una respuesta para tu pregunta!");
+                }
+                string Result = await _questionRepository.GetIAResponse(Answers, question);
+                Response = ApiResponse<string>.Success(Result);
+                return Response;
+            }catch
+            {
+                return Response;
+            }
         }
 
         public async Task<List<string>?> GetTopInfoQuestions(string question)

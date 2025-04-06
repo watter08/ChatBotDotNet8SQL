@@ -16,7 +16,6 @@ namespace ImproveAbilityInSqlAndC_.Infrastructure.Services.Product
             _repository = repository;
             _queryFactory = queryFactory;
         }
-
         public async Task<ApiResponse<List<DtoProducts>>> GetMoreExpensiveProductByCategory()
         {
             string query = _queryFactory.GetQuery("maxExpensiveProductByCategory");
