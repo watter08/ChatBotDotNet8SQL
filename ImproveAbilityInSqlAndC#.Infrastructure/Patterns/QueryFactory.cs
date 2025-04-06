@@ -1,5 +1,6 @@
 ﻿using ImproveAbilityInSqlAndC_.Application.Interfaces.Patterns;
 using ImproveAbilityInSqlAndC_.Domain.Consts.Queries.Product;
+using ImproveAbilityInSqlAndC_.Domain.Consts.Queries.Questions;
 
 namespace ImproveAbilityInSqlAndC_.Infrastructure.Patterns
 {
@@ -11,6 +12,7 @@ namespace ImproveAbilityInSqlAndC_.Infrastructure.Patterns
         {
             _queries = new Dictionary<string, string>
             {
+                {"answerResponseByQuestion", QuestionQueries.getAnswerResponseByQuestion },
                 {"maxExpensiveProductByCategory", ProductQueries.getMoreExpensiveProductByCategory },
                 {"maxExpensiveProductByCategoryAndPosition", ProductQueries.getMoreExpensiveProductByCategoryAndPosition },
                 {"middleProductPriceByMonth", ProductQueries.getMiddleProductPriceByMonth }

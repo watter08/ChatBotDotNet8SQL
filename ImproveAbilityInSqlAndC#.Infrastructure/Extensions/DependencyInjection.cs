@@ -5,6 +5,7 @@ using ImproveAbilityInSqlAndC_.Infrastructure.Context;
 using ImproveAbilityInSqlAndC_.Infrastructure.Patterns;
 using ImproveAbilityInSqlAndC_.Infrastructure.Repositories;
 using ImproveAbilityInSqlAndC_.Infrastructure.Services.Product;
+using ImproveAbilityInSqlAndC_.Infrastructure.Services.Question;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,13 +21,16 @@ namespace ImproveAbilityInSqlAndC_.Infrastructure.Extensions
                 return new AdoNetContext(connectioString);
             });
 
+            services.AddScoped<IAContext>();
             services.AddSingleton<IQueryFactory, QueryFactory>();
             services.AddScoped<IGenericRepository, GenericRepository>();
+            services.AddScoped<IQuestionRepository, QuestionRepository>();
             return services;
         }
 
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IProductServices, ProductServices>();
             return services;
         }
